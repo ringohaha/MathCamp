@@ -26,6 +26,13 @@ These same ideas apply within code-blocks in RMarkdown. Generally, any text outs
 Let's execute the line of code below. Select the entire line, and then press COMMAND+RETURN on a Mac, (CNTRL+ENTER on a PC).
 
 
+##### Install packages
+```{r}
+install.packages("knitr")
+library(knitr) ## to use a package already installed 
+```
+
+
 
 ##### Clear everything from R's workspace to start
 ```{r}
@@ -38,7 +45,7 @@ ls()
 
 ##### Let's run another command...
 
-
+paste concatenate strings. print will print the results in the console. 
 
 ```{r}
 paste("Welcome to University of Chicago! You are one in a ", sample(c("million!","billion!","trillion!","cohort of roughly 20? (Idk. Not great with numbers.)"), size=1), sep="")
@@ -54,7 +61,7 @@ One of the first things you'll want to do when working on R is set a working dir
 
 
 ```{r, eval=F}
-setwd("your/filepath/here") ##insert your file path between the quote marks
+setwd("/Users/apple/ECON REU 2017/MathCamp-master/Labs") ##insert your file path between the quote marks
 ```
 
 
@@ -192,6 +199,7 @@ mult.obj<-450*3
 
 ```{r}
 ?class
+
 ```
 
 
@@ -217,7 +225,7 @@ print(char.ex)
 It has no numeric value so we can't do math on it; it may look like a number, but if we put it in quotes, it's just text. See:
 
 ```{r, eval=F}
-char.ex*5
+char.ex*5 #error bc we can't do math on nonnumeric 
 ```
 
 
@@ -666,7 +674,7 @@ is.na(df$new) ##We use the "is.na()" function, which is a logic operator (it ret
 
 ```{r}
 #Your code here:
-
+df[1,3] <- 6
 ```
 
 
@@ -674,7 +682,7 @@ is.na(df$new) ##We use the "is.na()" function, which is a logic operator (it ret
 
 ```{r}
 #Your code here:
-
+df$new[3:4] <- c(3,3)
 ```
 
 
@@ -706,16 +714,18 @@ In the end, this amount of specificity is a virtue. The fewer assumptions R make
 ##### Let's break into groups of two, take 10 minutes, and perform the following tasks using these functions. If you're not sure how a function works, use the help menu.
 
 ```{r, eval=F}
-sd() ##compute the sample standard deviation of the $new column in df
-var() ##compute the sample variance of the $new column in df
-median() ##compute the median value of the $new column in df
-min() #find the minimum value in row 3 of df
-max() #find the maximum value in column 2 of df; now find the maximum value in the whole data frame
-unique() ##how many different elements are in the second column of df?
-length() ##how long is the list mats? what class of object is each element?
-paste() ## combine the character strings "Hello" and "world." into a single string, separating the words by a space. Assign this new string to an object named "greetings".
-c() ##store the strings "Hello" and "world." in a vector. Assign this new vector to an object named "greetings.vec".
-grep() ##get R to tell you which element(s) in the object "greetings.vec" contains the word "world."
+sd(df$new, na.rm = TRUE) ##compute the sample standard deviation of the $new column in df
+var(df$new, na.rm = TRUE) ##compute the sample variance of the $new column in df
+median(df$new, na.rm = TRUE) ##compute the median value of the $new column in df
+min(df[3,], na.rm = TRUE) #find the minimum value in row 3 of df
+max(df$var2, na.rm = TRUE)
+max(df, na.rm=TRUE) #find the maximum value in column 2 of df; now find the maximum value in the whole data frame
+unique(df[,2]) ##how many different elements are in the second column of df?
+length(mats)
+class(mats[[1]])##how long is the list mats? what class of object is each element?
+greetings <- paste("Hello", " world") ## combine the character strings "Hello" and "world." into a single string, separating the words by a space. Assign this new string to an object named "greetings".
+greetings.vec <- c("Hello", "world") ##store the strings "Hello" and "world." in a vector. Assign this new vector to an object named "greetings.vec".
+grep("world", greetings.vec) ##get R to tell you which element(s) in the object "greetings.vec" contains the word "world."
 
 ```
 
@@ -818,7 +828,9 @@ The rates are displayed in tables on this web site, but the tables are coded in 
 ##### We'll need the "RCurl()" package.
 
 ```{r}
-#install.package("RCurl")
+#install.packages("RCurl")
+#install.packages("bitops")
+library(bitops)
 library(RCurl)
 ```
 
