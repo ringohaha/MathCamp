@@ -196,11 +196,18 @@ rbind(nat.numbers, odd.even3)
 #### Fixing code
 
 The following function doesn't produce any output. What went wrong?
-```{r, error=T}
-broken.function <- function(number){
+```{r, error=T} 
+#error=T knitr option: display the error message
+#eval = T: evaluate this chunk of code 
+#echo = T: display this source code in the output file
+#include =T: whether to include the chunk output in the final output document; if include=FALSE, nothing will be written into the output document, but the code is still evaluated and plot files are generated if there are any plots in the chunk, so you can manually insert figures; 
+broken.function <- function(inputs){
 					if(inputs==5){
 						return("FIVE")
 					}
+          else {
+            return("NOT FIVE")
+          }
 					}
 					
 broken.function(8)
@@ -240,7 +247,7 @@ broken.function2 <- function(inputs){
     return(inputs.new)
 }
 
-broken.function2(inputs)
+broken.function2(c(1,2,3))
 ```
 
 					
@@ -249,6 +256,18 @@ broken.function2(inputs)
 Create a function that takes a vector as input. If the sum of all elements of this vector is less than or equal to 100, it returns the sum of all elements that can be divided by five without remainder. If the sum of all elements exceeds 100, it returns the mean of all elements. Apply your function to two vectors: (1) the first ten natural numbers; (2) the first 100 natural numbers.
 
 ```{r, include=F}
+myfunction <- function(input){
+  if(sum(input)<=100){
+    return(sum(ifelse(input%%5==0, input, 0)))
+  }
+  else{
+    return(mean(input))
+  }
+}
+
+myfunction(seq(1,10,1))
+myfunction(seq(1,100,1))
+
 your.function <- function(inputs){
   if(sum(inputs, na.rm=T)<=100){
     sub <- subset(inputs, inputs %% 5 == 0)
